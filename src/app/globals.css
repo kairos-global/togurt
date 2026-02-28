@@ -3,10 +3,20 @@
 :root {
   --background: #ffffff;
   --foreground: #2c2c2c;
-  --indeed-blue: #8fbc6e;
-  --indeed-blue-hover: #7aa558;
+  --accent: #8fbc6e;
+  --accent-hover: #7aa558;
   --border: #e0e0e0;
   --text-muted: #5f6368;
+  /* Play theme (Prize Picks–style) */
+  --play-bg: #0c0c0e;
+  --play-card: #16161a;
+  --play-card-hover: #1c1c21;
+  --play-border: #27272a;
+  --play-text: #fafafa;
+  --play-muted: #a1a1aa;
+  /* Legacy alias */
+  --indeed-blue: var(--accent);
+  --indeed-blue-hover: var(--accent-hover);
 }
 
 @theme inline {
@@ -15,13 +25,22 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--play-bg);
+  color: var(--play-text);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Hide scrollbar for horizontal pill scroll on mobile */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 /* Focus and inputs */
 input:focus, button:focus-visible {
-  outline: 2px solid var(--indeed-blue);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }

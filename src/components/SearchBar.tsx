@@ -6,20 +6,23 @@ import { useCallback, useState } from "react";
 const LOCATION_PLACEHOLDER = "City, state, or zip";
 const DEMO_PLACEHOLDER = "Role: directing, acting, writers, crew";
 
-export function SearchBarFallback({ compact = false }: { compact?: boolean }) {
+export function SearchBarFallback({ compact = false, variant = "default" }: { compact?: boolean; variant?: "default" | "play" }) {
   const py = compact ? "py-3" : "py-4";
+  const isPlay = variant === "play";
   return (
-    <div className="flex max-w-4xl gap-0 rounded-lg border border-[var(--border)] bg-white shadow-sm overflow-hidden animate-pulse">
-      <span className="flex items-center pl-4 text-[var(--text-muted)]"><SearchIcon /></span>
-      <div className={`min-w-0 flex-1 ${py} px-3 bg-gray-100 rounded`} />
-      <span className="flex items-center pl-2 text-[var(--text-muted)]"><PinIcon /></span>
-      <div className={`w-52 ${py} px-3 bg-gray-100 rounded border-l border-[var(--border)]`} />
-      <div className={`w-24 ${py} bg-[var(--indeed-blue)] opacity-70`} />
+    <div className={`flex max-w-4xl gap-0 rounded-xl overflow-hidden animate-pulse ${
+      isPlay ? "border border-[var(--play-border)] bg-[var(--play-card)]" : "border border-[var(--border)] bg-white shadow-sm"
+    }`}>
+      <span className={`flex items-center pl-4 ${isPlay ? "text-[var(--play-muted)]" : "text-[var(--text-muted)]"}`}><SearchIcon /></span>
+      <div className={`min-w-0 flex-1 ${py} px-3 rounded ${isPlay ? "bg-[var(--play-bg)]" : "bg-gray-100"}`} />
+      <span className={`flex items-center pl-2 ${isPlay ? "text-[var(--play-muted)]" : "text-[var(--text-muted)]"}`}><PinIcon /></span>
+      <div className={`w-52 ${py} px-3 rounded border-l ${isPlay ? "border-[var(--play-border)] bg-[var(--play-bg)]" : "border-[var(--border)] bg-gray-100"}`} />
+      <div className={`w-24 ${py} bg-[var(--accent)] opacity-70`} />
     </div>
   );
 }
 
-export function SearchBar({ compact = false }: { compact?: boolean }) {
+export function SearchBar({ compact = false, variant = "default" }: { compact?: boolean; variant?: "default" | "play" }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [location, setLocation] = useState(searchParams.get("location") ?? "");
@@ -34,16 +37,21 @@ export function SearchBar({ compact = false }: { compact?: boolean }) {
 
   const py = compact ? "py-3" : "py-4";
   const pxBtn = compact ? "px-6" : "px-8";
+  const isPlay = variant === "play";
 
   return (
     <form
-      className="flex max-w-4xl gap-0 rounded-lg border border-[var(--border)] bg-white shadow-sm overflow-hidden"
+      className={`flex max-w-4xl gap-0 rounded-xl overflow-hidden ${
+        isPlay
+          ? "border border-[var(--play-border)] bg-[var(--play-card)]"
+          : "border border-[var(--border)] bg-white shadow-sm"
+      }`}
       onSubmit={(e) => {
         e.preventDefault();
         handleSearch();
       }}
     >
-      <span className="flex items-center pl-4 text-[var(--text-muted)]" aria-hidden>
+      <span className={`flex items-center pl-4 ${isPlay ? "text-[var(--play-muted)]" : "text-[var(--text-muted)]"}`} aria-hidden>
         <SearchIcon />
       </span>
       <input
@@ -51,9 +59,13 @@ export function SearchBar({ compact = false }: { compact?: boolean }) {
         placeholder={DEMO_PLACEHOLDER}
         value={demographic}
         onChange={(e) => setDemographic(e.target.value)}
-        className={`min-w-0 flex-1 ${py} px-3 text-[var(--foreground)] placeholder:text-[var(--text-muted)]`}
+        className={`min-w-0 flex-1 ${py} px-3 bg-transparent ${
+          isPlay
+            ? "text-[var(--play-text)] placeholder:text-[var(--play-muted)]"
+            : "text-[var(--foreground)] placeholder:text-[var(--text-muted)]"
+        }`}
       />
-      <span className="flex items-center pl-2 text-[var(--text-muted)]" aria-hidden>
+      <span className={`flex items-center pl-2 ${isPlay ? "text-[var(--play-muted)]" : "text-[var(--text-muted)]"}`} aria-hidden>
         <PinIcon />
       </span>
       <input
@@ -61,11 +73,15 @@ export function SearchBar({ compact = false }: { compact?: boolean }) {
         placeholder={LOCATION_PLACEHOLDER}
         value={location}
         onChange={(e) => setLocation(e.target.value)}
-        className={`w-52 ${py} px-3 text-[var(--foreground)] placeholder:text-[var(--text-muted)] border-l border-[var(--border)]`}
+        className={`w-52 ${py} px-3 bg-transparent border-l ${
+          isPlay
+            ? "border-[var(--play-border)] text-[var(--play-text)] placeholder:text-[var(--play-muted)]"
+            : "border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--text-muted)]"
+        }`}
       />
       <button
         type="submit"
-        className={`bg-[var(--indeed-blue)] ${pxBtn} ${py} font-medium text-white hover:bg-[var(--indeed-blue-hover)]`}
+        className={`bg-[var(--accent)] ${pxBtn} ${py} font-semibold text-white hover:bg-[var(--accent-hover)] transition-colors`}
       >
         Search
       </button>

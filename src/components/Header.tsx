@@ -1,21 +1,33 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Header() {
+  const pathname = usePathname();
+  const isExplore = pathname?.startsWith("/search") ?? false;
+
   return (
-    <header className="border-b border-[var(--border)] bg-white">
+    <header className="border-b border-[var(--play-border)] bg-[var(--play-bg)]">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="text-xl font-bold text-[var(--indeed-blue)]">
+        <Link href="/" className="text-xl font-bold text-[var(--accent)]">
           Togurt
         </Link>
-        <nav className="flex items-center gap-6 text-sm text-[var(--text-muted)]">
-          <Link href="/" className="text-[var(--foreground)] underline decoration-[var(--indeed-blue)] decoration-2 underline-offset-4">
+        <nav className="hidden items-center gap-4 text-sm text-[var(--play-muted)] sm:flex sm:gap-6">
+          <Link
+            href="/"
+            className={pathname === "/" ? "text-[var(--play-text)] font-medium" : "hover:text-[var(--play-text)]"}
+          >
             Home
           </Link>
-          <Link href="/" className="hover:text-[var(--foreground)]">Company reviews</Link>
-          <Link href="/" className="hover:text-[var(--foreground)]">Find salaries</Link>
-          <span className="h-4 w-px bg-[var(--border)]" aria-hidden />
-          <Link href="/" className="hover:text-[var(--foreground)]">Sign in</Link>
-          <Link href="/" className="hover:text-[var(--foreground)]">Producers / Post project</Link>
+          <Link
+            href="/search"
+            className={isExplore ? "text-[var(--accent)] font-medium" : "hover:text-[var(--play-text)]"}
+          >
+            Explore
+          </Link>
+          <Link href="/" className="hover:text-[var(--play-text)]">Sign in</Link>
+          <Link href="/" className="hover:text-[var(--play-text)]">Post project</Link>
         </nav>
       </div>
     </header>
