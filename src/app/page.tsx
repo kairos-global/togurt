@@ -1,13 +1,16 @@
 import Link from "next/link";
-import { SearchBar } from "@/components/SearchBar";
+import { Suspense } from "react";
+import { SearchBar, SearchBarFallback } from "@/components/SearchBar";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#f5f5f5]">
       <div className="mx-auto max-w-4xl px-4 pt-10 pb-16">
-        <SearchBar />
+        <Suspense fallback={<SearchBarFallback />}>
+          <SearchBar />
+        </Suspense>
         <div className="mt-16 flex flex-col items-center text-center">
-          <h1 className="text-4xl font-bold text-[var(--foreground)]">togurt</h1>
+          <h1 className="text-4xl font-bold text-[var(--foreground)]">Togurt</h1>
           <p className="mt-4 text-xl font-semibold text-[var(--foreground)]">
             Your next short film opportunity starts here
           </p>

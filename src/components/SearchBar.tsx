@@ -6,6 +6,19 @@ import { useCallback, useState } from "react";
 const LOCATION_PLACEHOLDER = "City, state, or zip";
 const DEMO_PLACEHOLDER = "Role: directing, acting, writers, crew";
 
+export function SearchBarFallback({ compact = false }: { compact?: boolean }) {
+  const py = compact ? "py-3" : "py-4";
+  return (
+    <div className="flex max-w-4xl gap-0 rounded-lg border border-[var(--border)] bg-white shadow-sm overflow-hidden animate-pulse">
+      <span className="flex items-center pl-4 text-[var(--text-muted)]"><SearchIcon /></span>
+      <div className={`min-w-0 flex-1 ${py} px-3 bg-gray-100 rounded`} />
+      <span className="flex items-center pl-2 text-[var(--text-muted)]"><PinIcon /></span>
+      <div className={`w-52 ${py} px-3 bg-gray-100 rounded border-l border-[var(--border)]`} />
+      <div className={`w-24 ${py} bg-[var(--indeed-blue)] opacity-70`} />
+    </div>
+  );
+}
+
 export function SearchBar({ compact = false }: { compact?: boolean }) {
   const router = useRouter();
   const searchParams = useSearchParams();

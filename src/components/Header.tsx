@@ -5,7 +5,7 @@ export function Header() {
     <header className="border-b border-[var(--border)] bg-white">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link href="/" className="text-xl font-bold text-[var(--indeed-blue)]">
-          togurt
+          Togurt
         </Link>
         <nav className="flex items-center gap-6 text-sm text-[var(--text-muted)]">
           <Link href="/" className="text-[var(--foreground)] underline decoration-[var(--indeed-blue)] decoration-2 underline-offset-4">
