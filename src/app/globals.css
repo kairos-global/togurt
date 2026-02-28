@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #2c2c2c;
+  --indeed-blue: #2557a7;
+  --indeed-blue-hover: #1e4a8f;
+  --border: #e0e0e0;
+  --text-muted: #5f6368;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+}
+
+/* Indeed-style focus and inputs */
+input:focus, button:focus-visible {
+  outline: 2px solid var(--indeed-blue);
+  outline-offset: 2px;
+}
